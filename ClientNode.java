@@ -1,35 +1,94 @@
-// ClientNode class representing peripheral client nodes
-class ClientNode {
-    private String clientName;
-    private ServerNode server;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package star.topology;
 
-    // Constructor to initialize client name and connect to the server
-    public ClientNode(String clientName, ServerNode server) {
-        this.clientName = clientName;
-        if (server != null) {
-            this.server = server;
-            server.addClient(this);
-        } else {
-            throw new IllegalArgumentException("Server cannot be null.");
+import java.util.Scanner;
+
+public class ClientNode {
+
+    //Global member variables for the client node.
+    String IPAddress;
+    String MACAddress;
+    ServerNode serverNode;
+
+    //default construtor 
+    public ClientNode() {
+        IPAddress = "";
+        MACAddress = "";
+        serverNode = null;
+    }
+
+    public void send(ServerNode server, String SenderIP) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nEnter The IP Of The client Node where You want to send the Message");
+        String IP = input.nextLine();
+        System.out.println("Enter The Message Which you want to sent");
+        String msg = input.nextLine();
+        System.out.println("");
+        if (server.Interface1 != null) {
+            if (server.Interface1.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
+
+                receive(IP, msg);
+            }
         }
-    }
+        if (server.Interface2 != null) {
+            if (server.Interface2.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
 
-    // Method for sending a message to another client
-    public void send(String message, ClientNode receiver) {
-        if (!this.equals(receiver)) {
-            server.brokerMessage(message, this, receiver);
-        } else {
-            throw new IllegalArgumentException("Cannot send message to itself.");
+                receive(IP, msg);
+            }
         }
+        if (server.Interface3 != null) {
+            if (server.Interface3.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
+
+
+                receive(IP, msg);
+            }
+        }
+        if (server.Interface4 != null) {
+            if (server.Interface4.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
+
+                receive(IP, msg);
+            }
+        }
+        if (server.Interface5 != null) {
+            if (server.Interface5.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
+
+                receive(IP, msg);
+            }
+        }
+        if (server.Interface6 != null) {
+            if (server.Interface6.IPAddress.equalsIgnoreCase(IP)) {
+                System.out.println("message Successfully Sent");
+
+                receive(IP, msg);
+            }
+        }
+
     }
 
-    // Method for receiving a message from another client
-    public void receive(String message, String senderName) {
-        System.out.println(clientName + " received message: \"" + message + "\" from " + senderName);
+    public void receive(String sender, String Message) {
+        System.out.println("");
+        System.out.println("");
+        System.out.println((char) 27 + "[34m New Message " + (char) 27 + "[0m");
+
+        System.out.println("\nSender     : " + sender);
+        System.out.println("Message     : " + Message);
+        System.out.println("");
+        System.out.println("");
     }
 
-    // Getter method to retrieve the client name
-    public String getClientName() {
-        return clientName;
+    //Parameterised constructor.
+    public ClientNode(String IPAddress, String MacAddress, ServerNode s) {
+        this.IPAddress = IPAddress;
+        this.MACAddress = MacAddress;
+        this.serverNode = s;
     }
 }

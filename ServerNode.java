@@ -1,33 +1,68 @@
-import java.util.ArrayList;
-import java.util.List;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package star.topology;
 
-// ServerNode class representing the central server node
-class ServerNode {
-    private List<ClientNode> connectedClients;
-
-    // Constructor to initialize the list of connected clients
-    public ServerNode() {
-        this.connectedClients = new ArrayList<>();
+public class ServerNode {
+   
+    
+    //Member variables.
+    String IPAddress;
+    String MACAddress;
+    ClientNode Interface1, Interface2, Interface3, Interface4,Interface5,Interface6;
+    //Defualt constructor.
+    public ServerNode(){
+        this.IPAddress = "";
+        this.MACAddress = "";
+        this.Interface1 = null;
+        this.Interface2 = null;
+        this.Interface3 = null;
+        this.Interface4 = null;
+        this.Interface5 = null;
+        this.Interface6 = null;
     }
-
-    // Method to broker messages between client nodes
-    public void brokerMessage(String message, ClientNode sender, ClientNode receiver) {
-        // Check if sender, receiver, and both are connected to the server
-        if (!sender.equals(receiver) && connectedClients.contains(sender) && connectedClients.contains(receiver)) {
-            receiver.receive(message, sender.getClientName());
-        } else {
-            throw new IllegalArgumentException(
-                    "Sender or receiver not connected to the server, or attempting to send message to itself.");
+    //To return the interface the client node is connected on to the server.
+    public String Interface(String side){
+        String Interface = "";
+        
+        if(side.equalsIgnoreCase("Interface1")){
+       
+                Interface = "Interface1";
+          }else if(side.equalsIgnoreCase("Interface2")){
+               Interface = "Interface2";
+          }
+        else if(side.equalsIgnoreCase("Interface3")){
+               Interface = "Interface3";
+          }
+        else if(side.equalsIgnoreCase("Interface4")){
+               Interface = "Interface4";
+          }
+        else if(side.equalsIgnoreCase("Interface5")){
+               Interface = "Interface5";
+          }
+        else if(side.equalsIgnoreCase("Interface6")){
+               Interface = "Interface6";
+          }
+        else{
+            
         }
+            
+        
+        return Interface;
     }
 
-    // Method to add a client to the list of connected clients
-    public void addClient(ClientNode client) {
-        connectedClients.add(client);
+    //ServerNode parameterised constructor.
+    public ServerNode(String IPaddress, String MACaddress, ClientNode Interface1, ClientNode Interface2, ClientNode Interface3, ClientNode Interface4, ClientNode Interface5, ClientNode Interface6) {
+        this.IPAddress = IPaddress;
+        this.MACAddress = MACaddress;
+        this.Interface1 = Interface1;
+        this.Interface2 = Interface2;
+        this.Interface3 = Interface3;
+        this.Interface4 = Interface4;
+        this.Interface5 = Interface5;
+        this.Interface6 = Interface6;
     }
-
-    // Method to remove a client from the list of connected clients
-    public void removeClient(ClientNode client) {
-        connectedClients.remove(client);
-    }
+    
 }
